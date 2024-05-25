@@ -11,6 +11,13 @@ startButton.addEventListener("click", goQuestion);
 
 let questions = [];
 let questionIndex = 0;
+let score = 0;
+
+let responded = false;
+
+if (!localStorage.scores) {
+  localStorage.setItem("scores", JSON.stringify({}));
+}
 
 function goQuestion() {
   home.classList.add("hide");
@@ -22,6 +29,7 @@ async function startGame() {
   questions = await axios.get(apiQuestions).then((res) => res.data.results);
   console.log(questions);
   questionIndex = 0;
+  score = 0;
 
   let currentQuestion = questions[questionIndex];
   questionText.innerHTML = currentQuestion.question;
@@ -40,6 +48,18 @@ async function startGame() {
   });
 }
 
+function selectAnswer(event) {
+  console.log(event.currentTarget.dataset.correct);
+  if (responded) {
+    return;
+  }
+  if (event.currentTarget.dataset.correct) {
+    score += 1;
+  }
+}
+
+// let date = new Date().toLocaleDateString();
+
 // Ref: https://www.freecodecamp.org/news/how-to-shuffle-an-array-of-items-using-javascript-or-typescript/
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -48,5 +68,3 @@ function shuffle(array) {
   }
   return array;
 }
-
-function selectAnswer() {}
