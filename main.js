@@ -6,6 +6,7 @@ const startButton = document.getElementById("start-btn");
 const questionContainer = document.getElementById("question-container");
 const questionText = document.getElementById("question");
 const answerButtons = document.getElementById("answer-buttons");
+const nextButton = document.getElementById("next-btn");
 
 startButton.addEventListener("click", goQuestion);
 
@@ -49,13 +50,49 @@ async function startGame() {
 }
 
 function selectAnswer(event) {
-  console.log(event.currentTarget.dataset.correct);
   if (responded) {
     return;
   }
-  if (event.currentTarget.dataset.correct) {
+  Array.from(answerButtons.children).forEach((button) => {
+    setStatusClass(button);
+    nextButton.classList.remove("hide");
+  });
+  nextButton.addEventListener("click", nextQuestion);
+
+  if (event.currentTarget.dataset.correct === "true") {
     score += 1;
   }
+}
+function setStatusClass(element) {
+  if (element.dataset.correct === "true") {
+    element.classList.add("color-correct");
+  } else {
+    element.classList.add("color-wrong");
+  }
+}
+
+function nextQuestion() {
+  questionIndex += 1;
+
+  answerButtons.innerHTML = "";
+
+  let currentQuestion = questions[questionIndex];
+  questionText.innerHTML = currentQuestion.question;
+  let answers = [].concat(currentQuestion.incorrect_answers);
+  answers.push(currentQuestion.correct_answer);
+
+  answers = shuffle(answers);
+
+  answers.forEach((answer) => {
+    let btn = document.createElement("button");
+    btn.innerHTML = answer;
+    btn.dataset.correct = answer === currentQuestion.correct_answer;
+    btn.addEventListener("click", selectAnswer);
+
+    answerButtons.appendChild(btn);
+
+    nextButton.classList.add("hide");
+  });
 }
 
 // let date = new Date().toLocaleDateString();
