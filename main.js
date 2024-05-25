@@ -9,6 +9,7 @@ const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
 
 startButton.addEventListener("click", goQuestion);
+nextButton.addEventListener("click", nextQuestion);
 
 let questions = [];
 let questionIndex = 0;
@@ -55,13 +56,13 @@ function selectAnswer(event) {
   }
   Array.from(answerButtons.children).forEach((button) => {
     setStatusClass(button);
-    nextButton.classList.remove("hide");
   });
-  nextButton.addEventListener("click", nextQuestion);
 
   if (event.currentTarget.dataset.correct === "true") {
     score += 1;
   }
+
+  nextButton.classList.remove("hide");
 }
 function setStatusClass(element) {
   if (element.dataset.correct === "true") {
