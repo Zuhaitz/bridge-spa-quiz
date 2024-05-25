@@ -4,8 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PopQuiz</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    <script src="main.js" defer></script>
   </head>
   <body>
-    <main></main>
+    <header>
+      <p>Quiz</p>
+    </header>
+
+    <main>
+      <section id="home">
+        <div>
+          <p>Welcome to the quiz!</p>
+          <button id="start-btn">Take the quiz</button>
+        </div>
+      </section>
+
+      <section id="question-container" class="hide">
+        <div>
+          <div>
+            <p id="question">Question</p>
+            <div id="answer-buttons"></div>
+          </div>
+          <button id="next-btn" class="hide">Next</button>
+        </div>
+      </section>
+
+      <section id="results" class="hide">
+        <div>
+          <div></div>
+          <div>
+            <div>
+              <p>Aquí van los resultados</p>
+              <p>Esto puede ser un texto personalizado para el resultado</p>
+            </div>
+            <button id="restart-btn">Jugar otra vez</button>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
