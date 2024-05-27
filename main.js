@@ -33,14 +33,22 @@ async function goQuestion() {
     await startGame();
     home.classList.add("hide");
     questionContainer.classList.remove("hide");
+
+    startButton.disabled = false;
+    startButton.innerHTML = "Take the quiz";
   } catch (error) {
     console.error(error);
+    startButton.disabled = false;
+    startButton.innerHTML = "Take the quiz";
   }
 }
 
 // Resets the initial values and fetches the questions from the API
 async function startGame() {
   resetGame();
+  startButton.disabled = true;
+  startButton.innerHTML = "Loading...";
+
   questions = await axios.get(apiQuestions).then((res) => res.data.results);
   console.log(questions);
 
