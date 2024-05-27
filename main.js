@@ -15,6 +15,13 @@ const nextButton = document.getElementById("next-btn");
 
 nextButton.addEventListener("click", nextQuestion);
 
+// Results Page
+const results = document.getElementById("results");
+const punctuation = document.getElementById("punctuation");
+const restartBtn = document.getElementById("restart-btn");
+
+const pages = [home, questionContainer, results];
+
 // Initial values
 let questions = [];
 let questionIndex = 0;
@@ -31,7 +38,8 @@ if (!localStorage.scores) {
 async function goQuestion() {
   try {
     await startGame();
-    home.classList.add("hide");
+    // home.classList.add("hide");
+    hideAll(...pages);
     questionContainer.classList.remove("hide");
 
     startButton.disabled = false;
@@ -41,6 +49,12 @@ async function goQuestion() {
     startButton.disabled = false;
     startButton.innerHTML = "Take the quiz";
   }
+}
+
+function goResults() {
+  punctuation.innerHTML = score;
+  hideAll(...pages);
+  results.classList.remove("hide");
 }
 
 // Resets the initial values and fetches the questions from the API
@@ -85,8 +99,9 @@ function nextQuestion() {
   answerButtons.innerHTML = "";
 
   questionIndex += 1;
-  addNextQuestionToDOM();
+  if (questionIndex >= 10) return goResults();
 
+  addNextQuestionToDOM();
   responded = false;
 }
 
@@ -124,6 +139,10 @@ function resetGame() {
   score = 0;
 
   responded = false;
+}
+
+function hideAll(...elems) {
+  elems.forEach((elem) => elem.classList.add("hide"));
 }
 
 // Shuffles the array that's being passed by argument
