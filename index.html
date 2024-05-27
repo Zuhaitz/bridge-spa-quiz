@@ -52,20 +52,29 @@
         </div>
       </section>
 
-      <section id="results" class="hide">
-        <div>
-          <div>
-            <p>
-              <span id="punctuation"></span>
-              / 10
-            </p>
-          </div>
-          <div>
-            <div>
-              <p>Aquí van los resultados</p>
-              <p>Esto puede ser un texto personalizado para el resultado</p>
+      <section id="results" class="results hide">
+        <div class="card border-primary">
+          <div class="result-card card-body">
+            <div class="punctuation-section">
+              <p>
+                <span id="punctuation">0</span>
+                / 10
+              </p>
             </div>
-            <button id="restart-btn">Play Again</button>
+
+            <div class="result-text-section">
+              <p class="result-title">THIS IS YOUR RESULTS!</p>
+              <p id="result-text" class="result-text">
+                Esto puede ser un texto personalizado para el resultado Esto
+                puede ser un texto personalizado para el resultado
+              </p>
+
+              <div class="restart-btn">
+                <button id="restart-btn" class="btn btn-primary">
+                  Play Again
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>

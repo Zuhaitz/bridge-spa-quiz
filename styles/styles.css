@@ -1,5 +1,6 @@
 .home,
-.questions {
+.questions,
+.results {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,6 +57,54 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.result-card {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.punctuation-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 150px;
+  min-height: 150px;
+
+  margin-right: 30px;
+  text-align: center;
+  font-size: 30px;
+
+  border-radius: 100%;
+  background-color: #74f5d0;
+}
+
+.punctuation-section #punctuation {
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.result-text-section {
+  padding-left: 30px;
+  border-left: 1px solid #78c2ad;
+}
+
+.result-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.result-text {
+  max-width: 500px;
+  margin-bottom: 30px;
+}
+
+.restart-btn {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .mb-100 {
