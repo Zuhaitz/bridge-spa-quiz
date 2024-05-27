@@ -5,7 +5,7 @@ const apiQuestions =
 const home = document.getElementById("home");
 const startButton = document.getElementById("start-btn");
 
-startButton.addEventListener("click", goQuestion);
+startButton.addEventListener("click", goResult);
 
 // Questions Page
 const questionContainer = document.getElementById("question-container");
@@ -54,12 +54,16 @@ async function goQuestion() {
   startButton.innerHTML = "Take the quiz";
 }
 
-function goResults() {
+// Goes to the Result page
+function goResult() {
+  saveScore(score);
   punctuation.innerHTML = score;
+
   hideAll(...pages);
   results.classList.remove("hide");
 }
 
+// Restart game when button is clicked
 async function restartGame() {
   try {
     restartButton.disabled = true;
@@ -117,7 +121,7 @@ function nextQuestion() {
   answerButtons.innerHTML = "";
 
   questionIndex += 1;
-  if (questionIndex >= 10) return goResults();
+  if (questionIndex >= 10) return goResult();
 
   addNextQuestionToDOM();
   responded = false;
@@ -148,8 +152,6 @@ function addNextQuestionToDOM() {
   nextButton.classList.add("hide");
 }
 
-// let date = new Date().toLocaleDateString();
-
 // Resets the values of the game
 function resetGame() {
   questions = [];
@@ -159,8 +161,17 @@ function resetGame() {
   responded = false;
 }
 
+// Hide all pages in argument
 function hideAll(...elems) {
   elems.forEach((elem) => elem.classList.add("hide"));
+}
+
+// Saves score to localStorage
+function saveScore(newScore) {
+  let savedScores = JSON.parse(localStorage.getItem("scores"));
+  let date = new Date().toLocaleDateString();
+  savedScores[date] = score;
+  localStorage.setItem("scores", JSON.stringify(savedScores));
 }
 
 // Shuffles the array that's being passed by argument
