@@ -28,10 +28,10 @@ if (!localStorage.scores) {
 }
 
 // Goes to Questions section of page, and starts the game
-function goQuestion() {
+async function goQuestion() {
+  await startGame();
   home.classList.add("hide");
   questionContainer.classList.remove("hide");
-  startGame();
 }
 
 // Resets the initial values and fetches the questions from the API
