@@ -1,0 +1,22 @@
+.home,
+.questions,
+.results {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  max-width: 80%;
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.card-body {
+  width: fit-content;
+  margin: 10px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
