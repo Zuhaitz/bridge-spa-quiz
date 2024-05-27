@@ -22,9 +22,9 @@
 
     <main>
       <section id="home" class="home">
-        <div class="card border-primary" style="max-width: 20rem">
+        <div class="card border-primary">
           <div class="card-body">
-            <h5 class="card-text text-primary-emphasis">
+            <h5 class="card-text text-primary-emphasis mb-100">
               Welcome to the quiz!
             </h5>
             <button id="start-btn" type="button" class="btn btn-primary">
@@ -34,13 +34,21 @@
         </div>
       </section>
 
-      <section id="question-container" class="hide">
-        <div>
-          <div>
-            <p id="question">Question</p>
-            <div id="answer-buttons"></div>
+      <section id="question-container" class="questions hide">
+        <div class="card border-primary">
+          <div class="card-body">
+            <h5 id="question" class="question card-text text-primary-emphasis">
+              Question
+            </h5>
+            <div id="answer-buttons" class="answer-buttons"></div>
           </div>
-          <button id="next-btn" class="hide">Next</button>
+          <button
+            type="button"
+            id="next-btn"
+            class="next-btn btn btn-primary hide"
+          >
+            Next
+          </button>
         </div>
       </section>
 
