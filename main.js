@@ -29,22 +29,22 @@ if (!localStorage.scores) {
 
 // Goes to Questions section of page, and starts the game
 async function goQuestion() {
-  await startGame();
-  home.classList.add("hide");
-  questionContainer.classList.remove("hide");
+  try {
+    await startGame();
+    home.classList.add("hide");
+    questionContainer.classList.remove("hide");
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // Resets the initial values and fetches the questions from the API
 async function startGame() {
-  try {
-    resetGame();
-    questions = await axios.get(apiQuestions).then((res) => res.data.results);
-    console.log(questions);
+  resetGame();
+  questions = await axios.get(apiQuestions).then((res) => res.data.results);
+  console.log(questions);
 
-    addNextQuestionToDOM();
-  } catch (error) {
-    console.error(error);
-  }
+  addNextQuestionToDOM();
 }
 
 // When answer is selected, checks if answer is correct or not
