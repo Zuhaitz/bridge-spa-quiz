@@ -93,6 +93,7 @@ function addNextQuestionToDOM() {
   answers.forEach((answer) => {
     let btn = document.createElement("button");
     btn.innerHTML = answer;
+    btn.classList.add("answer");
     btn.dataset.correct = answer === currentQuestion.correct_answer;
     btn.addEventListener("click", selectAnswer);
 
