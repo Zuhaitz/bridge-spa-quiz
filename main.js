@@ -36,11 +36,15 @@ function goQuestion() {
 
 // Resets the initial values and fetches the questions from the API
 async function startGame() {
-  resetGame();
-  questions = await axios.get(apiQuestions).then((res) => res.data.results);
-  console.log(questions);
+  try {
+    resetGame();
+    questions = await axios.get(apiQuestions).then((res) => res.data.results);
+    console.log(questions);
 
-  addNextQuestionToDOM();
+    addNextQuestionToDOM();
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // When answer is selected, checks if answer is correct or not
