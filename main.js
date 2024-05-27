@@ -18,7 +18,9 @@ nextButton.addEventListener("click", nextQuestion);
 // Results Page
 const results = document.getElementById("results");
 const punctuation = document.getElementById("punctuation");
-const restartBtn = document.getElementById("restart-btn");
+const restartButton = document.getElementById("restart-btn");
+
+restartButton.addEventListener("click", restartGame);
 
 const pages = [home, questionContainer, results];
 
@@ -37,18 +39,19 @@ if (!localStorage.scores) {
 // Goes to Questions section of page, and starts the game
 async function goQuestion() {
   try {
+    startButton.disabled = true;
+    startButton.innerHTML = "Loading...";
+
     await startGame();
-    // home.classList.add("hide");
+
     hideAll(...pages);
     questionContainer.classList.remove("hide");
-
-    startButton.disabled = false;
-    startButton.innerHTML = "Take the quiz";
   } catch (error) {
     console.error(error);
-    startButton.disabled = false;
-    startButton.innerHTML = "Take the quiz";
   }
+
+  startButton.disabled = false;
+  startButton.innerHTML = "Take the quiz";
 }
 
 function goResults() {
@@ -57,11 +60,26 @@ function goResults() {
   results.classList.remove("hide");
 }
 
+async function restartGame() {
+  try {
+    restartButton.disabled = true;
+    restartButton.innerHTML = "Loading...";
+
+    await startGame();
+
+    hideAll(...pages);
+    questionContainer.classList.remove("hide");
+  } catch (error) {
+    console.error(error);
+  }
+
+  restartButton.disabled = false;
+  restartButton.innerHTML = "Play Again";
+}
+
 // Resets the initial values and fetches the questions from the API
 async function startGame() {
   resetGame();
-  startButton.disabled = true;
-  startButton.innerHTML = "Loading...";
 
   questions = await axios.get(apiQuestions).then((res) => res.data.results);
   console.log(questions);
