@@ -3,9 +3,10 @@ const apiQuestions =
 
 // Home Page
 const home = document.getElementById("home");
+const scoreChart = document.getElementById("score-chart");
 const startButton = document.getElementById("start-btn");
 
-startButton.addEventListener("click", goResult);
+startButton.addEventListener("click", goQuestion);
 
 // Questions Page
 const questionContainer = document.getElementById("question-container");
@@ -22,6 +23,7 @@ const restartButton = document.getElementById("restart-btn");
 
 restartButton.addEventListener("click", restartGame);
 
+// Pages list for easy access
 const pages = [home, questionContainer, results];
 
 // Initial values
@@ -34,6 +36,8 @@ let responded = false;
 // Checks if scores is initialize in local storage
 if (!localStorage.scores) {
   localStorage.setItem("scores", JSON.stringify({}));
+} else {
+  createChart(JSON.parse(localStorage.getItem("scores")));
 }
 
 // Goes to Questions section of page, and starts the game
@@ -159,6 +163,39 @@ function resetGame() {
   score = 0;
 
   responded = false;
+}
+
+function createChart(scores) {
+  let dates = Object.keys(scores);
+  let values = Object.values(scores);
+
+  new Chart(scoreChart, {
+    type: "bar",
+    data: {
+      labels: dates.slice(Math.max(dates.length - 5, 0)),
+      datasets: [
+        {
+          label: "Score",
+          backgroundColor: "#78c2ad",
+          borderColor: "#78c2ad",
+          data: values.slice(Math.max(values.length - 5, 0)),
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          min: 0,
+          max: 10,
+          offset: true,
+        },
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      padding: 20,
+    },
+  });
 }
 
 // Hide all pages in argument

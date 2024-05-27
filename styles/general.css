@@ -2,8 +2,20 @@
 .questions,
 .results {
   display: flex;
-  justify-content: center;
+  /* flex: 1; */
+  justify-content: space-evenly;
   align-items: center;
+  padding: 30px;
+}
+
+.chart-container {
+  margin: 10px;
+  margin-top: 80px;
+  max-width: 500px;
+  height: auto;
+  position: relative;
+  height: 50vh;
+  width: 50vw;
 }
 
 .card {
