@@ -170,7 +170,7 @@ function createChart(scores) {
   let values = Object.values(scores);
 
   new Chart(scoreChart, {
-    type: "bar",
+    type: "line",
     data: {
       labels: dates.slice(Math.max(dates.length - 5, 0)),
       datasets: [
