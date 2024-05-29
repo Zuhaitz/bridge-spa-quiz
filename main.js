@@ -1,8 +1,9 @@
 const apiQuestions =
-  "https://opentdb.com/api.php?amount=10&category=25&type=multiple&difficulty=easy";
+  "https://opentdb.com/api.php?amount=10&type=multiple&difficulty=easy";
 
 // Home Page
 const home = document.getElementById("home");
+const categorySelect = document.getElementById("category-select");
 const scoreChart = document.getElementById("score-chart");
 const startButton = document.getElementById("start-btn");
 
@@ -88,8 +89,12 @@ async function restartGame() {
 // Resets the initial values and fetches the questions from the API
 async function startGame() {
   resetGame();
+  let url = apiQuestions;
+  if (categorySelect.value !== "0") {
+    url += `&category=${categorySelect.value}`;
+  }
 
-  questions = await axios.get(apiQuestions).then((res) => res.data.results);
+  questions = await axios.get(url).then((res) => res.data.results);
   console.log(questions);
 
   addNextQuestionToDOM();
