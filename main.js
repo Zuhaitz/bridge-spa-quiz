@@ -15,6 +15,14 @@ const nextButton = document.getElementById("next-btn");
 
 nextButton.addEventListener("click", nextQuestion);
 
+// Results Page
+const results = document.getElementById("results");
+const punctuation = document.getElementById("punctuation");
+const restartButton = document.getElementById("restart-btn");
+
+// Pages list for easy access
+const pages = [home, questionContainer, results];
+
 // Initial values
 let questions = [];
 let questionIndex = 0;
@@ -30,27 +38,25 @@ if (!localStorage.scores) {
 // Goes to Questions section of page, and starts the game
 async function goQuestion() {
   try {
-    await startGame();
-    home.classList.add("hide");
-    questionContainer.classList.remove("hide");
+    startButton.disabled = true;
+    startButton.innerHTML = "Loading...";
 
-    startButton.disabled = false;
-    startButton.innerHTML = "Take the quiz";
+    await startGame();
+
+    hideAll(...pages);
+    questionContainer.classList.remove("hide");
   } catch (error) {
     console.error(error);
-    startButton.disabled = false;
-    startButton.innerHTML = "Take the quiz";
   }
+
+  startButton.disabled = false;
+  startButton.innerHTML = "Take the quiz";
 }
 
 // Resets the initial values and fetches the questions from the API
 async function startGame() {
   resetGame();
-  startButton.disabled = true;
-  startButton.innerHTML = "Loading...";
-
   questions = await axios.get(apiQuestions).then((res) => res.data.results);
-  console.log(questions);
 
   addNextQuestionToDOM();
 }
@@ -124,6 +130,11 @@ function resetGame() {
   score = 0;
 
   responded = false;
+}
+
+// Hide all pages in argument
+function hideAll(...elems) {
+  elems.forEach((elem) => elem.classList.add("hide"));
 }
 
 // Shuffles the array that's being passed by argument
