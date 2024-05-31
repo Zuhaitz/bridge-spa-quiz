@@ -22,6 +22,7 @@ nextButton.addEventListener("click", nextQuestion);
 // Results Page
 const results = document.getElementById("results");
 const punctuation = document.getElementById("punctuation");
+const resultText = document.getElementById("result-text");
 const restartButton = document.getElementById("restart-btn");
 
 restartButton.addEventListener("click", () => {
@@ -30,6 +31,21 @@ restartButton.addEventListener("click", () => {
 
 // Pages list for easy access
 const pages = [home, questionContainer, results];
+
+// Result text options
+const resultTextOptions = [
+  "Now try to do it with your eyes open.",
+  "Your number of brain cells.",
+  "2?",
+  "Ok",
+  "Dog!",
+  "Average Joe",
+  "Disappointment",
+  "Lucky 7!",
+  "It kinda looks like a snowman.",
+  "Jimmy got a ten, and you get a NINE?!?!",
+  "PERFECT SCORE! Well done!",
+];
 
 // Initial values
 let questions = [];
@@ -67,6 +83,7 @@ async function goQuestion(button) {
 function goResult() {
   saveScore(score);
   punctuation.innerHTML = score;
+  resultText.innerText = resultTextOptions[score];
 
   hideAll(...pages);
   results.classList.remove("hide");
@@ -156,6 +173,7 @@ function resetGame() {
   responded = false;
 }
 
+// Creates chart using the data in local storage
 function createChart(scores) {
   let dates = Object.keys(scores);
   let values = Object.values(scores);
