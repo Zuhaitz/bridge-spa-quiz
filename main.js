@@ -72,6 +72,9 @@ async function goQuestion() {
     questionContainer.classList.remove("hide");
   } catch (error) {
     console.error(error);
+
+    hideAll(...pages);
+    home.classList.remove("hide");
   }
 }
 
@@ -211,7 +214,7 @@ function hideAll(...elems) {
 function saveScore(newScore) {
   let savedScores = JSON.parse(localStorage.getItem("scores"));
   let date = new Date().toLocaleDateString();
-  savedScores[date] = score;
+  savedScores[date] = newScore;
   localStorage.setItem("scores", JSON.stringify(savedScores));
 }
 
