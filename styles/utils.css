@@ -1,0 +1,22 @@
+.hide {
+  display: none;
+}
+
+.color-correct {
+  color: white;
+  background-color: #78c2ad;
+}
+
+.color-wrong {
+  color: white;
+  background-color: #ff7851;
+  border-color: #ff7851;
+}
+
+.color-wrong:hover {
+  background-color: #ff7851;
+}
+
+.mb-100 {
+  margin-bottom: 100px;
+}
