@@ -7,7 +7,9 @@ const categorySelect = document.getElementById("category-select");
 const scoreChart = document.getElementById("score-chart");
 const startButton = document.getElementById("start-btn");
 
-startButton.addEventListener("click", goQuestion);
+startButton.addEventListener("click", () => {
+  goQuestion(startButton);
+});
 
 // Questions Page
 const questionContainer = document.getElementById("question-container");
@@ -22,7 +24,9 @@ const results = document.getElementById("results");
 const punctuation = document.getElementById("punctuation");
 const restartButton = document.getElementById("restart-btn");
 
-restartButton.addEventListener("click", restartGame);
+restartButton.addEventListener("click", () => {
+  goQuestion(restartButton);
+});
 
 // Pages list for easy access
 const pages = [home, questionContainer, results];
@@ -42,10 +46,10 @@ if (!localStorage.scores) {
 }
 
 // Goes to Questions section of page, and starts the game
-async function goQuestion() {
+async function goQuestion(button) {
   try {
-    startButton.disabled = true;
-    startButton.innerHTML = "Loading...";
+    button.disabled = true;
+    button.innerHTML = "Loading...";
 
     await startGame();
 
@@ -55,8 +59,8 @@ async function goQuestion() {
     console.error(error);
   }
 
-  startButton.disabled = false;
-  startButton.innerHTML = "Take the quiz";
+  button.disabled = false;
+  button.innerHTML = "Take the quiz";
 }
 
 // Goes to the Result page
@@ -66,24 +70,6 @@ function goResult() {
 
   hideAll(...pages);
   results.classList.remove("hide");
-}
-
-// Restart game when button is clicked
-async function restartGame() {
-  try {
-    restartButton.disabled = true;
-    restartButton.innerHTML = "Loading...";
-
-    await startGame();
-
-    hideAll(...pages);
-    questionContainer.classList.remove("hide");
-  } catch (error) {
-    console.error(error);
-  }
-
-  restartButton.disabled = false;
-  restartButton.innerHTML = "Play Again";
 }
 
 // Resets the initial values and fetches the questions from the API
