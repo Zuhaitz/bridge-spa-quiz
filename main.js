@@ -7,9 +7,10 @@ const categorySelect = document.getElementById("category-select");
 const scoreChart = document.getElementById("score-chart");
 const startButton = document.getElementById("start-btn");
 
-startButton.addEventListener("click", () => {
-  goQuestion(startButton);
-});
+startButton.addEventListener("click", goQuestion);
+
+// Load Page
+const loadPage = document.getElementById("load-page");
 
 // Questions Page
 const questionContainer = document.getElementById("question-container");
@@ -25,12 +26,10 @@ const punctuation = document.getElementById("punctuation");
 const resultText = document.getElementById("result-text");
 const restartButton = document.getElementById("restart-btn");
 
-restartButton.addEventListener("click", () => {
-  goQuestion(restartButton);
-});
+restartButton.addEventListener("click", goQuestion);
 
 // Pages list for easy access
-const pages = [home, questionContainer, results];
+const pages = [home, loadPage, questionContainer, results];
 
 // Result text options
 const resultTextOptions = [
@@ -62,10 +61,10 @@ if (!localStorage.scores) {
 }
 
 // Goes to Questions section of page, and starts the game
-async function goQuestion(button) {
+async function goQuestion() {
   try {
-    button.disabled = true;
-    button.innerHTML = "Loading...";
+    hideAll(...pages);
+    loadPage.classList.remove("hide");
 
     await startGame();
 
@@ -74,9 +73,6 @@ async function goQuestion(button) {
   } catch (error) {
     console.error(error);
   }
-
-  button.disabled = false;
-  button.innerHTML = "Take the quiz";
 }
 
 // Goes to the Result page
@@ -98,7 +94,6 @@ async function startGame() {
   }
 
   questions = await axios.get(url).then((res) => res.data.results);
-  console.log(questions);
 
   addNextQuestionToDOM();
 }

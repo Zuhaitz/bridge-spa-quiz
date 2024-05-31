@@ -1,11 +1,15 @@
 .home,
 .questions,
-.results {
+.results,
+.load-page {
   display: flex;
-  /* flex: 1; */
   justify-content: space-evenly;
   align-items: center;
   padding: 30px;
+}
+
+.load-page {
+  height: 80vh;
 }
 
 .chart-container {
